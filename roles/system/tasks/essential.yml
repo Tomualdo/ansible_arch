@@ -1,0 +1,10 @@
+- name: Show username
+  debug:
+    var: "{{ ansible_user_id }}"
+
+
+- name: Update and upgrade pacman packages
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+

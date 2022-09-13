@@ -1,0 +1,24 @@
+- name: test
+  hosts: localhost
+  #vars_files:
+  #  - custom.yml
+  #  - secret.yml
+  become: no
+  gather_facts: no
+  tasks:
+    - name: test1
+      command: date
+      register: dt
+
+    - name: print dt
+      debug: 
+        msg: "loool: {{ username }}
+             dsklfj: {{ dt.stdout }}"
+
+        #- name: upda
+        #  community.general.pacman:
+        #    update_cache: yes
+        #    upgrade: yes
+        
+        #register: result
+        #changed_when: result.packages | length > 0

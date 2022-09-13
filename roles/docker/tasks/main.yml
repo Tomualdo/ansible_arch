@@ -1,0 +1,33 @@
+- name: install docker
+  community.general.pacman:
+    name: 
+      - docker
+      - docker-compose
+    state: present
+
+- name: Ensure group docker exists
+  group:
+    name: docker
+    state: present
+
+- name: Add user "{{ username }}" to group docker
+  user:
+    name: "{{ username }}"
+    groups:
+      - docker
+    append: yes
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
+- name: Make sure Docker is running and enabled
+  systemd:
+    name: docker
+    daemon_reload: yes
+    state: started
+    enabled: yes
+
+- name: Create the wg network
+  docker_network:
+    name: wg_network

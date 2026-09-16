@@ -1,4 +1,6 @@
-- include_tasks: essential.yml
-- include_tasks: user.yml
+---
+- name: Include essential system tasks
+  ansible.builtin.include_tasks: essential.yml
 
-
+- name: Include user management tasks
+  ansible.builtin.include_tasks: user.yml

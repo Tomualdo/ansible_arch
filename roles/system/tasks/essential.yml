@@ -1,10 +1,13 @@
+---
 - name: Show username
-  debug:
-    var: "{{ ansible_user_id }}"
+  ansible.builtin.debug:
+    var: ansible_user_id
 
-
-- name: Update and upgrade pacman packages
+- name: Update pacman package cache
   community.general.pacman:
-    update_cache: yes
-    upgrade: yes
+    update_cache: true
 
+- name: Upgrade pacman packages when explicitly requested
+  community.general.pacman:
+    upgrade: true
+  when: upgrade_packages | default(false) | bool

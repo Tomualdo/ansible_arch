@@ -1,0 +1,57 @@
+# custom.yml - Ansible variables for ansible_arch
+# Copy this file to custom.yml and fill in your own values.
+
+# --- Required ---
+
+# The UNIX user that will own services and be added to the docker group.
+# Must contain only lowercase letters and numbers.
+username: "notthebee"
+
+# The public domain that resolves to this server.
+# 'wg' and 'auth' subdomains should also resolve here unless using DuckDNS.
+root_host: "example.duckdns.org"
+
+# --- Optional ---
+
+# Set to true to create the user above automatically.
+# If false, the user must already exist.
+enable_username_creation: yes
+
+# Set to true to allow the sudo group passwordless sudo.
+enable_passwordless_sudo: yes
+
+# Shell for the created user.
+user_shell: "/bin/bash"
+
+# Base directory for Docker persistent volumes.
+docker_dir: "/opt/docker"
+
+# SSH port used by fail2ban and UFW rescue rules.
+ssh_port: 22
+
+# UFW rules. Override this list in custom.yml.
+ufw_ports:
+  - { port: 22, proto: tcp }
+  - { port: 80, proto: tcp }
+  - { port: 443, proto: tcp }
+  - { port: 51820, proto: udp }
+
+# WireGuard public endpoint and port.
+wireguard_host: "wg.{{ root_host }}"
+wireguard_port: 51820
+
+# DNS servers advertised to WireGuard clients.
+dns_nameservers:
+  - "1.1.1.1"
+  - "8.8.8.8"
+
+# Authelia public endpoint.
+authelia_host: "auth.{{ root_host }}"
+
+# E-mail settings for Authelia (optional).
+# If email_password is not defined, Authelia falls back to a local filesystem notification.
+# email_smtp_host: "smtp.gmail.com"
+# email_smtp_port: 465
+# email_login: "user@example.com"
+# email_recipient: "user@example.com"
+# email: "user@example.com"

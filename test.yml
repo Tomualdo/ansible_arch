@@ -1,24 +1,16 @@
-- name: test
+---
+- name: Local sanity check
   hosts: localhost
-  #vars_files:
-  #  - custom.yml
-  #  - secret.yml
-  become: no
-  gather_facts: no
+  become: false
+  gather_facts: false
+  vars:
+    username: "testuser"
   tasks:
-    - name: test1
-      command: date
-      register: dt
+    - name: Get current date
+      ansible.builtin.command: date
+      register: current_date
+      changed_when: false
 
-    - name: print dt
-      debug: 
-        msg: "loool: {{ username }}
-             dsklfj: {{ dt.stdout }}"
-
-        #- name: upda
-        #  community.general.pacman:
-        #    update_cache: yes
-        #    upgrade: yes
-        
-        #register: result
-        #changed_when: result.packages | length > 0
+    - name: Print date and username
+      ansible.builtin.debug:
+        msg: "User: {{ username }}, Date: {{ current_date.stdout }}"

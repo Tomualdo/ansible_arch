@@ -1,33 +1,35 @@
-- name: install docker
+---
+- name: Install Docker and the compose plugin
   community.general.pacman:
-    name: 
+    name:
       - docker
       - docker-compose
     state: present
 
 - name: Ensure group docker exists
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
 
-- name: Add user "{{ username }}" to group docker
-  user:
+- name: Add username to group docker
+  ansible.builtin.user:
     name: "{{ username }}"
     groups:
       - docker
-    append: yes
+    append: true
 
-- name: Install Docker Module for Python
-  pip:
+- name: Install Docker SDK for Python
+  ansible.builtin.pip:
     name: docker
+    state: present
 
 - name: Make sure Docker is running and enabled
-  systemd:
+  ansible.builtin.systemd:
     name: docker
-    daemon_reload: yes
+    daemon_reload: true
     state: started
-    enabled: yes
+    enabled: true
 
-- name: Create the wg network
-  docker_network:
+- name: Create the WireGuard network
+  community.docker.docker_network:
     name: wg_network

@@ -1,6 +1,7 @@
 #!/usr/bin/env ansible-playbook
 
-- hosts: all
+- name: Deploy WireGuard VPN stack
+  hosts: all
   become: true
 
   vars_files:
@@ -8,11 +9,8 @@
     - secret.yml
 
   handlers:
-    - import_tasks: handlers/main.yml
-
- # pre_tasks:
- #   - set_fact:
- #       aws: "{{ lookup('ansible.builtin.env', 'AWS_EC2') == 'true' }}"
+    - name: Import global handlers
+      ansible.builtin.import_tasks: handlers/main.yml
 
   roles:
     - role: system
@@ -23,13 +21,17 @@
       tags:
         - docker
 
+    - role: ufw
+      tags:
+        - ufw
+
     - role: fail2ban
       tags:
         - fail2ban
 
-    - role: ufw
+    - role: wireguard
       tags:
-        - ufw
+        - wireguard
 
     - role: authelia
       tags:
@@ -38,7 +40,3 @@
     - role: bunkerweb
       tags:
         - bunkerweb
-
-    - role: wireguard
-      tags:
-        - wireguard

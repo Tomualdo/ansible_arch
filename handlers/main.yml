@@ -1,15 +1,19 @@
 ---
-- name: restart authelia
-  docker_container:
+- name: Restart authelia
+  community.docker.docker_container:
     name: authelia
-    restart: yes
+    restart: true
 
-- name: restart wg-easy
-  docker_container:
+- name: Restart wg-easy
+  community.docker.docker_container:
     name: wg-easy
-    restart: yes
+    restart: true
 
-- name: restart bunkerweb
-  docker_container:
+- name: Restart bunkerweb
+  community.docker.docker_container:
     name: bunkerweb
-    restart: yes
+    restart: true
+
+- name: Source .bashrc
+  ansible.builtin.command: source /home/{{ username }}/.bashrc
+  changed_when: false

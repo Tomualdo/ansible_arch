@@ -1,2 +1,8 @@
 secret.yml
 custom.yml
+*.retry
+.vagrant/
+.cache/
+__pycache__/
+*.pyc
+.ansible/

@@ -11,15 +11,15 @@ all:
 
     root_host: example.duckdns.org
 
-    enable_username_creation: yes
+    enable_username_creation: true
 
     user_shell: /bin/bash
 
-    enable_passwordless_sudo: yes
+    enable_passwordless_sudo: true
 
     # Whether or not you want to generate a public key pair for SSH auth
     # The playbook will not generate a new pair if $HOME/.ssh/authorized_keys exists and isn't empty
-    enable_ssh_keygen: yes
+    enable_ssh_keygen: true
 
     # Uncomment this line if you already have a public SSH key and put your public key in it
     # This overrides `enable_ssh_keygen`

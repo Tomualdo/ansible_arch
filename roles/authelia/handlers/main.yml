@@ -1,6 +1,7 @@
 ---
-- name: source .bashrc
-  shell:
+- name: Source .bashrc
+  ansible.builtin.shell:
     executable: /bin/bash
-    cmd: source $HOME/.bashrc
-  ignore_errors: true
+    cmd: source /home/{{ username }}/.bashrc
+  changed_when: false
+  failed_when: false
